@@ -10,7 +10,7 @@ from urllib.parse import parse_qs
 from random import randrange
 from timeit import default_timer as timer
 
-from telegram import InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegraph.exceptions import RetryAfterError
 
 from google.auth.transport.requests import Request
@@ -255,10 +255,20 @@ class GoogleDriveHelper:
                 msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                 msg += f'\n<b>Type: </b>{mime_type}'
                 surl = self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))
-                buttons.RetryAfterError("☁️ Dʀɪᴠᴇ Lɪɴᴋ ☁️", surl)
-                if DRIVE_INDEX_URL is not None:
-                    url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                button = []
+        button.append(
+            [pyrogram.InlineKeyboardButton(text="☁️ CloudUrl ☁️", url=f"{surl}")]
+        )
+        if DRIVE_INDEX_URL is not None:
+            url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
+            button.append(
+                [
+                    pyrogram.InlineKeyboardButton(
+                        text="ℹ️ IndexUrl ℹ️", url=f"{url}"
+                    )
+                ]
+            )
+        button_markup = pyrogram.InlineKeyboardMarkup(button)
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
