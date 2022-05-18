@@ -257,7 +257,10 @@ class GoogleDriveHelper:
                     mime_type = 'File'
                 msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                 msg += f'\n<b>Type: </b>{mime_type}'
-                msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a>'
+           reply_markup = InlineKeyboardMarkup( [[
+                    InlineKeyboardButton("DRIVE LINK", url="https://t.me/mhd_thanzeer")
+                    ]]
+                    )
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
                     msg += f' | <a href="{url}">Index Link</a>'
