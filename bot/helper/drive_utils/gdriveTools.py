@@ -263,7 +263,10 @@ class GoogleDriveHelper:
                     )
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                     reply_markup = InlineKeyboardMarkup( [[
+                    InlineKeyboardButton("index LINK", url="{url}")
+                    ]]
+                    )
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
