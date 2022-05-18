@@ -10,7 +10,7 @@ from urllib.parse import parse_qs
 from random import randrange
 from timeit import default_timer as timer
 
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from telegram import InlineKeyboardMarkup
 from telegraph.exceptions import RetryAfterError
 
 from google.auth.transport.requests import Request
@@ -254,21 +254,10 @@ class GoogleDriveHelper:
                     mime_type = 'File'
                 msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                 msg += f'\n<b>Type: </b>{mime_type}'
-                surl = self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))
-                button = []
-        button.append(
-            [pyrogram.InlineKeyboardButton(text="☁️ CloudUrl ☁️", url=f"{surl}")]
-        )
-        if DRIVE_INDEX_URL is not None:
-            url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-            button.append(
-                [
-                    pyrogram.InlineKeyboardButton(
-                        text="ℹ️ IndexUrl ℹ️", url=f"{url}"
-                    )
-                ]
-            )
-        button_markup = pyrogram.InlineKeyboardMarkup(button)
+                msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a>'
+                if DRIVE_INDEX_URL is not None:
+                    url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
+                    msg += f' | <a href="{url}">Index Link</a>'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
