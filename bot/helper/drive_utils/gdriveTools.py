@@ -10,7 +10,7 @@ from urllib.parse import parse_qs
 from random import randrange
 from timeit import default_timer as timer
 
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
 from telegraph.exceptions import RetryAfterError
 
 from google.auth.transport.requests import Request
@@ -247,6 +247,9 @@ class GoogleDriveHelper:
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
                     msg += f' | <a href="{url}">Index Link</a>'
+        buttons = ButtonMaker()
+        buttons.build_button("VIEW RESULTS 🗂️", f"https://telegra.ph/")
+        return msg, InlineKeyboardMarkup(buttons.build_menu(1))
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
                 msg += f'<b>Filename: </b><code>{file.get("name")}</code>'
@@ -254,19 +257,10 @@ class GoogleDriveHelper:
                     mime_type = 'File'
                 msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                 msg += f'\n<b>Type: </b>{mime_type}'
-            await messsage.reply_text(
-                text = "Thank You For Using Me",
-                reply_markup = InlineKeyboardMarkup( [[
-                    InlineKeyboardButton("DRIVE LINK", url="{url}")
-                    ]]
-                    )
-                    )
+                msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                     reply_markup = InlineKeyboardMarkup( [[
-                    InlineKeyboardButton("index LINK", url="{url}")
-                    ]]
-                    )
+                    msg += f' | <a href="{url}">Index Link</a>'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
