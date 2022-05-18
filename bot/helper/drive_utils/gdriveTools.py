@@ -258,12 +258,12 @@ class GoogleDriveHelper:
                 msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                 msg += f'\n<b>Type: </b>{mime_type}'
                 reply_markup = InlineKeyboardMarkup( [[
-                    InlineKeyboardButton("DRIVE LINK", url="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}")
+                    InlineKeyboardButton("DRIVE LINK", url="{url}")
                     ]]
                     )
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                   
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
