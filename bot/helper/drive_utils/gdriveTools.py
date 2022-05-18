@@ -247,9 +247,6 @@ class GoogleDriveHelper:
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
                     msg += f' | <a href="{url}">Index Link</a>'
-        buttons = ButtonMaker()
-        buttons.build_button("VIEW RESULTS 🗂️", f"https://")
-        return meta, InlineKeyboardMarkup(buttons.build_menu(1))
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
                 msg += f'<b>Filename: </b><code>{file.get("name")}</code>'
@@ -261,6 +258,9 @@ class GoogleDriveHelper:
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
                     msg += f' | <a href="{url}">Index Link</a>'
+        buttons = ButtonMaker()
+        buttons.build_button("VIEW RESULTS 🗂️", f"https://")
+        return, InlineKeyboardMarkup(buttons.build_menu(1))
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
