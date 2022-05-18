@@ -258,7 +258,7 @@ class GoogleDriveHelper:
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
                     msg += f' | <a href="{url}">Index Link</a>'
-        buttons = ButtonMaker()
+        button = ButtonMaker()
         buttons.build_button("VIEW RESULTS 🗂️", f"https://")
         return, InlineKeyboardMarkup(buttons.build_menu(1))
         except Exception as err:
