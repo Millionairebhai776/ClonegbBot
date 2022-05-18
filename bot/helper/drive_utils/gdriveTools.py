@@ -254,7 +254,7 @@ class GoogleDriveHelper:
                     mime_type = 'File'
                 msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                 msg += f'\n<b>Type: </b>{mime_type}'
-                surl = self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}
+                surl = self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))
                 buttons.RetryAfterError("☁️ Dʀɪᴠᴇ Lɪɴᴋ ☁️", surl)
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
