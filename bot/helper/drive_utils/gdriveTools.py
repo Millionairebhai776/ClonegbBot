@@ -258,9 +258,6 @@ class GoogleDriveHelper:
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
                     msg += f' | <a href="{url}">Index Link</a>'
-        button = ButtonMaker()
-        buttons.build_button("VIEW RESULTS 🗂️", f"https://")
-        return, InlineKeyboardMarkup(buttons.build_menu(1))
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
@@ -278,6 +275,12 @@ class GoogleDriveHelper:
                 msg = str(err)
             LOGGER.error(f"{msg}")
         return msg
+    
+    msg = f"<b>Found </b>"
+
+        buttons = ButtonMaker()
+        buttons.build_button("VIEW RESULTS 🗂️", f"https://telegra.ph/{self.path[0]}")
+        return msg, InlineKeyboardMarkup(buttons.build_menu(1))
 
     def cloneFolder(self, name, local_path, folder_id, parent_id, status):
         LOGGER.info(f"Syncing: {local_path}")
@@ -532,4 +535,4 @@ class GoogleDriveHelper:
 
         buttons = ButtonMaker()
         buttons.build_button("VIEW RESULTS 🗂️", f"https://telegra.ph/{self.path[0]}")
-        return msg, InlineKeyboardMarkup(buttons.build_menu(2))
+        return msg, InlineKeyboardMarkup(buttons.build_menu(1))
