@@ -10,7 +10,7 @@ from urllib.parse import parse_qs
 from random import randrange
 from timeit import default_timer as timer
 
-from telegram import InlineKeyboardMarkup
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegraph.exceptions import RetryAfterError
 
 from google.auth.transport.requests import Request
@@ -243,7 +243,10 @@ class GoogleDriveHelper:
                 msg += f"\n<b>Type: </b>Folder"
                 msg += f"\n<b>SubFolders: </b>{self.total_folders}"
                 msg += f"\n<b>Files: </b>{self.total_files}"
-                msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
+                reply_markup = InlineKeyboardMarkup( [[
+                    InlineKeyboardButton("DRIVE LINK", url="https://t.me/mhd_thanzeer")
+                    ]]
+                    )
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
                     msg += f' | <a href="{url}">Index Link</a>'
