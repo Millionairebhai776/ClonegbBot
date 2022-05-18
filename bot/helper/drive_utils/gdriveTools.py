@@ -243,10 +243,10 @@ class GoogleDriveHelper:
                 msg += f"\n<b>Type: </b>Folder"
                 msg += f"\n<b>SubFolders: </b>{self.total_folders}"
                 msg += f"\n<b>Files: </b>{self.total_files}"
-                msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
+                msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n\n</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                    msg += f'<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞</a>'
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
                 msg += f'<b>Filename: </b><code>{file.get("name")}</code>'
@@ -254,10 +254,10 @@ class GoogleDriveHelper:
                     mime_type = 'File'
                 msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
                 msg += f'\n<b>Type: </b>{mime_type}'
-                msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a>'
+                msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n\n</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                    msg += f'<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞</a>'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
@@ -275,12 +275,6 @@ class GoogleDriveHelper:
                 msg = str(err)
             LOGGER.error(f"{msg}")
         return msg
-    
-    msg = f"<b>Found </b>"
-
-        buttons = ButtonMaker()
-        buttons.build_button("VIEW RESULTS 🗂️", f"https://telegra.ph/{self.path[0]}")
-        return msg, InlineKeyboardMarkup(buttons.build_menu(1))
 
     def cloneFolder(self, name, local_path, folder_id, parent_id, status):
         LOGGER.info(f"Syncing: {local_path}")
