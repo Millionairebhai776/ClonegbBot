@@ -257,7 +257,7 @@ class GoogleDriveHelper:
             await messsage.reply_text(
                 text = "Thank You For Using Me",
                 reply_markup = InlineKeyboardMarkup( [[
-                    InlineKeyboardButton("DRIVE LINK", url="self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))")
+                    InlineKeyboardButton("DRIVE LINK", url="{url}")
                     ]]
                     )
                     )
