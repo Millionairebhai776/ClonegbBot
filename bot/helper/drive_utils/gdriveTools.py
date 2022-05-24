@@ -235,14 +235,12 @@ class GoogleDriveHelper:
                 msg += f"\n<b>📦 Type : Folder</b>"
                 msg += f"\n<b>🗂️ SubFolders : </b>{self.total_folders}"
                 msg += f"\n<b>📚 Files : </b>{self.total_files}\n\n<b>📬 Ownerd By : #WhitE_DeviL09</b>"
-                # msg += f'\n\n<b><a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a></b>'
                 
                 url = self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)
                 buttons.append([InlineKeyboardButton("💾 Drive Link 💾", url=url)])
                 
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
-                    # msg += f' <b>| <a href="{url}">Index Link</a></b>'
                     buttons.append([InlineKeyboardButton("🚀 Index Link 🚀", url=url)])
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
@@ -254,14 +252,12 @@ class GoogleDriveHelper:
                 try:
                     msg += f'\n\n<b>💽 Size : {get_readable_file_size(int(meta.get("size", 0)))}</b>'
                     msg += f'\n<b>📦 Type : {typ}</b>\n\n📬 <b>Ownerd By : #WhitE_DevIL09</b>'
-                    # msg += f'\n\n<b><a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a></b>'
                     url = self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))
                     buttons.append([InlineKeyboardButton("💾 Drive Link 💾", url=url)])
                 except TypeError:
                     pass
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    # msg += f' <b>| <a href="{url}">Index Link</a></b>'
                     buttons.append([InlineKeyboardButton("🚀 Index Link 🚀", url=url)])
         except Exception as err:
             if isinstance(err, RetryError):
