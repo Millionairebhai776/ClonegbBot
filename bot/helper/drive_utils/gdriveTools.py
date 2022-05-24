@@ -247,7 +247,7 @@ class GoogleDriveHelper:
                 msg += f'\n\n━━━━━━━━━━━━━━━━━━━━━━\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n</a>━━━━━━━━━━━━━━━━━━━━━━'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
-                     msg += f'\n<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞\n</a>━━━━━━━━━━━━━━━━━━━━━━'
+                    msg += f'\n<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞\n</a>━━━━━━━━━━━━━━━━━━━━━━'
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
                 msg += f'<b>📬 Filename : {file.get("name")}</b>'
