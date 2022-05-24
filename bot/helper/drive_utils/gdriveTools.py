@@ -255,7 +255,7 @@ class GoogleDriveHelper:
                     mime_type = 'File'
                 msg += f'\n<b>📀 Size : {get_readable_file_size(int(meta.get("size", 0)))}</b>'
                 msg += f'\n<b>📝 Type : {mime_type}</b>'
-                msg += f'\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>
+                msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>"
                 msg += f'\n\n━━━━━━━━━━━━━━━━━━━━━━\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n</a>━━━━━━━━━━━━━━━━━━━━━━'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
