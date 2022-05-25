@@ -230,7 +230,6 @@ class GoogleDriveHelper:
             LOGGER.error(f"{msg}")
             return msg
         msg = ""
-        buttons = button_builder.ButtonMaker()
         try:
             meta = self.getFileMetadata(file_id)
             status.set_source_folder(meta.get('name'), self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(meta.get('id')))
@@ -248,7 +247,7 @@ class GoogleDriveHelper:
                 msg += f'\n\n━━━━━━━━━━━━━━━━━━━━━━\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n</a>━━━━━━━━━━━━━━━━━━━━━━'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
-                    buttons.build_button("🚀 Index Link 🚀", f"url")
+                    msg += f'\n<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞\n</a>━━━━━━━━━━━━━━━━━━━━━━'
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
                 msg += f'<b>📬 Filename : {file.get("name")}</b>'
@@ -260,7 +259,7 @@ class GoogleDriveHelper:
                 msg += f'\n\n━━━━━━━━━━━━━━━━━━━━━━\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n</a>━━━━━━━━━━━━━━━━━━━━━━'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    buttons.build_button("🚀 Index Link 🚀", f"url")
+                    msg += f'\n<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞\n</a>━━━━━━━━━━━━━━━━━━━━━━'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
@@ -277,7 +276,7 @@ class GoogleDriveHelper:
             else:
                 msg = str(err)
             LOGGER.error(f"{msg}")
-        return msg, InlineKeyboardMarkup(buttons.build_menu(1))
+        return msg
 
     def cloneFolder(self, name, local_path, folder_id, parent_id, status):
         LOGGER.info(f"Syncing: {local_path}")
