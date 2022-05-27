@@ -13,8 +13,8 @@ from bot.helper.telegram_helper import button_builder
 
 def start(update, context):
     buttons = button_builder.ButtonMaker()
-    buttons.buildbutton("❤️‍🔥 JNS BOTS ❤️‍🔥", "https://t.me/JNS_BOTS")
-    buttons.buildbutton("🧲 JNS LEECHS 🧲", "https://t.me/JNS_MIRROR")
+    buttons.buildbutton("📬 BoT Owner 📬", "https://t.me/mhd_thanzeer")
+    buttons.buildbutton("📮 Index Site Link 📮", "https://ms.mhdthanzeer.workers.dev/0:")
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(1))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         if update.message.chat.type == "private":
@@ -24,8 +24,8 @@ def start(update, context):
         LOGGER.info('Granted: {} [{}]'.format(update.message.from_user.first_name, update.message.from_user.id))
     else:
         buttons = button_builder.ButtonMaker()
-        buttons.buildbutton("👑 DEV 👑", "https://t.me/JINTONS")
-        buttons.buildbutton("❤️‍🔥 JNS BOTS ❤️‍🔥", "https://t.me/JNS_BOTS")
+        buttons.buildbutton("📬 BoT Owner 📬", "https://t.me/mhd_thanzeer")
+        buttons.buildbutton("📮 Index Site Link 📮", "https://ms.mhdthanzeer.workers.dev/0:")
         reply_markup = InlineKeyboardMarkup(buttons.build_menu(1))
         sendMarkup("who the helll 😤 \n\n<b>Access denied 🙅🏻‍♀️ </b>", context.bot, update, reply_markup)
         LOGGER.info('Denied: {} [{}]'.format(update.message.from_user.first_name, update.message.from_user.id))
