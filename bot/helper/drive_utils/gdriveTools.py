@@ -229,15 +229,16 @@ class GoogleDriveHelper:
                 dir_id = self.create_directory(meta.get('name'), parent_id)
                 self.cloneFolder(meta.get('name'), meta.get('name'), meta.get('id'), dir_id, status)
                 status.set_status(True)
-                msg += f'<b>Filename: </b><code>{meta.get("name")}</code>'
-                msg += f'\n<b>Size: </b>{get_readable_file_size(self.transferred_size)}'
-                msg += f"\n<b>Type: </b>Folder"
-                msg += f"\n<b>SubFolders: </b>{self.total_folders}"
-                msg += f"\n<b>Files: </b>{self.total_files}"
-                msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
+                msg += f'<b>📬 Filename : {meta.get("name")}</b>'
+                msg += f'\n<b>📀 Size : {get_readable_file_size(self.transferred_size)}</b>'
+                msg += f"\n<b>📝 Type : Folder </b>"
+                msg += f"\n<b>📁 SubFolders : {self.total_folders}</b>"
+                msg += f"\n<b>🔍 Files : {self.total_files}</b>"
+                msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>"
+                msg += f'\n\n━━━━━━━━━━━━━━━━━━━━━━\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n</a>━━━━━━━━━━━━━━━━━━━━━━'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                    msg += f'\n<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞\n</a>━━━━━━━━━━━━━━━━━━━━━━'
             else:
                 file = self.copyFile(meta.get('id'), parent_id, status)
                 try:
@@ -246,14 +247,13 @@ class GoogleDriveHelper:
                     typ = 'File' 
                 msg += f'<b>Filename: </b><code>{file.get("name")}</code>'
                 try:
-                    msg += f'\n<b>Size: </b>{get_readable_file_size(int(meta.get("size", 0)))}'
-                    msg += f'\n<b>Type: </b>{typ}'
-                    msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a>'
-                except TypeError:
-                    pass
-                if DRIVE_INDEX_URL is not None:
-                    url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
-                    msg += f' | <a href="{url}">Index Link</a>'
+                    msg += f'\n<b>📀 Size : {get_readable_file_size(int(meta.get("size", 0)))}</b>'
+                    msg += f'\n<b>📝 Type : {typ}</b>'
+                    msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>"
+                    msg += f'\n\n━━━━━━━━━━━━━━━━━━━━━━\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">𝐃𝐑𝐈𝐕𝐄 𝐋𝐈𝐍𝐊\n</a>━━━━━━━━━━━━━━━━━━━━━━'
+                    if DRIVE_INDEX_URL is not None:
+                        url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{file.get("name")}')
+                        msg += f'\n<a href="{url}">𝗜𝗡𝗗𝗘𝗫 𝗟𝗜𝗡𝗞\n</a>━━━━━━━━━━━━━━━━━━━━━━'
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
@@ -533,6 +533,6 @@ class GoogleDriveHelper:
               f"<b>(Time taken {time_taken}s)</b>"
 
         buttons = button_builder.ButtonMaker()
-        buttons.build_button("VIEW RESULTS 🗂️", f"https://telegra.ph/{self.path[0]}")
+        buttons.build_button("🔎 VIEW YOUR RESULTS 🔍", f"https://telegra.ph/{self.path[0]}")
 
         return msg, InlineKeyboardMarkup(buttons.build_menu(1))
