@@ -229,11 +229,12 @@ class GoogleDriveHelper:
                 dir_id = self.create_directory(meta.get('name'), parent_id)
                 self.cloneFolder(meta.get('name'), meta.get('name'), meta.get('id'), dir_id, status)
                 status.set_status(True)
-                msg += f'<b>Filename: </b><code>{meta.get("name")}</code>'
-                msg += f'\n<b>Size: </b>{get_readable_file_size(self.transferred_size)}'
-                msg += f"\n<b>Type: </b>Folder"
-                msg += f"\n<b>SubFolders: </b>{self.total_folders}"
-                msg += f"\n<b>Files: </b>{self.total_files}"
+                msg += f'<b>📬 Filename : {meta.get("name")}</b>'
+                msg += f'\n<b>📀 Size : {get_readable_file_size(self.transferred_size)}</b>'
+                msg += f"\n<b>📝 Type : Folder </b>"
+                msg += f"\n<b>📁 SubFolders : {self.total_folders}</b>"
+                msg += f"\n<b>🔍 Files : {self.total_files}</b>"
+                msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>""
                 msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
@@ -449,9 +450,9 @@ class GoogleDriveHelper:
             for files in response_dict:
                 index = int(files) - 1
                 if add_title_msg:
-                    msg = f'<h4>Query: {file_name}</h4><br>'
+                    msg = f'<h4>Query : {file_name}</h4><br>'
                     add_title_msg = False
-                msg += f"╾────────────╼<br><b>{DRIVE_NAME[index]}</b><br>╾────────────╼<br>"
+                msg += f"╾────────────╼<br><b>📮 𝗠𝗛𝗗_𝗧𝗛𝗔𝗡𝗭𝗘𝗘𝗥 📮</b><br>╾────────────╼<br>"
                 # Detect whether current entity is a folder or file
                 for file in response_dict[files]["files"]:
                     if file.get('mimeType') == "application/vnd.google-apps.folder":
@@ -498,7 +499,7 @@ class GoogleDriveHelper:
 
             try:
                 self.path.append(
-                    telegraph[acc_no].create_page(title='MHD_THANZEER',
+                    telegraph[acc_no].create_page(title='Thanzeer_Cloud',
                                                   author_name='@mhd_thanzeer',
                                                   author_url='https://t.me/mhd_thanzeer',
                                                   html_content=self.telegraph_content[i])['path'])
@@ -506,7 +507,7 @@ class GoogleDriveHelper:
                 LOGGER.info(f"Cooldown: {e.retry_after} seconds")
                 time.sleep(e.retry_after)
                 self.path.append(
-                    telegraph[acc_no].create_page(title='MHD_THANZEER',
+                    telegraph[acc_no].create_page(title='Thanzeer_Cloud',
                                                   author_name='@mhd_thanzeer',
                                                   author_url='https://t.me/mhd_thanzeer',
                                                   html_content=self.telegraph_content[i])['path'])
