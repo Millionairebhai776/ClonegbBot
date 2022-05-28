@@ -229,12 +229,11 @@ class GoogleDriveHelper:
                 dir_id = self.create_directory(meta.get('name'), parent_id)
                 self.cloneFolder(meta.get('name'), meta.get('name'), meta.get('id'), dir_id, status)
                 status.set_status(True)
-                msg += f'<b>📬 Filename : {meta.get("name")}</b>'
-                msg += f'\n<b>📀 Size : {get_readable_file_size(self.transferred_size)}</b>'
-                msg += f"\n<b>📝 Type : Folder </b>"
-                msg += f"\n<b>📁 SubFolders : {self.total_folders}</b>"
-                msg += f"\n<b>🔍 Files : {self.total_files}</b>"
-                msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>""
+                msg += f'<b>Filename: </b><code>{meta.get("name")}</code>'
+                msg += f'\n<b>Size: </b>{get_readable_file_size(self.transferred_size)}'
+                msg += f"\n<b>Type: </b>Folder"
+                msg += f"\n<b>SubFolders: </b>{self.total_folders}"
+                msg += f"\n<b>Files: </b>{self.total_files}"
                 msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
