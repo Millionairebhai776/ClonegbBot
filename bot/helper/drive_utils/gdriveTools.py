@@ -234,6 +234,7 @@ class GoogleDriveHelper:
                 msg += f"\n<b>📝 Type : Folder</b>"
                 msg += f"\n<b>📁 SubFolders : {self.total_folders}</b>"
                 msg += f"\n<b>🔍 Files : {self.total_files}</b>"
+                msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>"
                 msg += f'\n\n<a href="{self.__G_DRIVE_DIR_BASE_DOWNLOAD_URL.format(dir_id)}">Drive Link</a>'
                 if DRIVE_INDEX_URL is not None:
                     url = requests.utils.requote_uri(f'{DRIVE_INDEX_URL}/{meta.get("name")}/')
@@ -248,6 +249,7 @@ class GoogleDriveHelper:
                 try:
                     msg += f'\n<b>📀 Size : {get_readable_file_size(int(meta.get("size", 0)))} </b>'
                     msg += f'\n<b>📝 Type : {typ} </b>'
+                    msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>"
                     msg += f'\n\n<a href="{self.__G_DRIVE_BASE_DOWNLOAD_URL.format(file.get("id"))}">Drive Link</a>'
                 except TypeError:
                     pass
@@ -325,6 +327,7 @@ class GoogleDriveHelper:
                 msg += f'\n<b>📝 Type : </b>Folder'
                 msg += f'\n<b>📁 SubFolders : </b>{self.total_folders}'
                 msg += f'\n<b>🔍 Files : </b>{self.total_files}'
+                msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>"
             else:
                 msg += f'<b>📮 File Name : {meta.get("name")}</b>'
                 if mime_type is None:
@@ -334,6 +337,7 @@ class GoogleDriveHelper:
                 msg += f'\n<b>📀 Size : {get_readable_file_size(self.total_bytes)}</b>'
                 msg += f'\n<b>📝 Type : {mime_type}</b>'
                 msg += f'\n<b>🔍 Files : {self.total_files}</b>'
+                msg += f"\n\n<b>📬 Ownerd By : @mhd_thanzeer</b>"
         except Exception as err:
             if isinstance(err, RetryError):
                 LOGGER.info(f"Total attempts: {err.last_attempt.attempt_number}")
